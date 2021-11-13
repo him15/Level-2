@@ -1,3 +1,158 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args){
+        int n = 4, tq = 4;
+        boolean[] rowS = new boolean[n];
+        boolean[] colS = new boolean[n];
+        boolean[] nDia = new boolean[2 * n - 1];
+        boolean[] rDia = new boolean[2 * n - 1];
+        
+        // nQueenCombinationsUnOptimize(new boolean[n][m], tq, 0, 0, "");
+        nQueenPermutationsUnOptmize(new boolean[n][n], tq, 0, 0, "");
+        
+        nQueenCombinationsOptimize(new boolean[n][n], tq, 0, 0, "", rowS, colS, nDia, rDia);
+        
+    }
+    
+    public static boolean isSafeToPlace(boolean[][] board, int row, int col){
+        int n = board.length;
+        int m = board[0].length;
+        int[][] dir = {{0,-1}, {-1,0}, {-1,-1}, {-1,1}};
+        
+        for(int[] d : dir){
+            int r = row, c = col;
+            
+            while(r >= 0 && r < n && c >= 0 && c < m){
+                if(board[r][c]){
+                    return false;
+                }
+                r += d[0];
+                c += d[1];
+            }
+        }
+        return true;
+    }
+    
+    
+    public static boolean isSafeToPlacePer(boolean[][] board, int row, int col){
+        int n = board.length;
+        int m = board[0].length;
+        int[][] dir = {{0,-1}, {-1,0}, {-1,-1}, {-1,1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}};
+        
+        for(int[] d : dir){
+            int r = row, c = col;
+            
+            while(r >= 0 && r < n && c >= 0 && c < m){
+                if(board[r][c]){
+                    return false;
+                }
+                r += d[0];
+                c += d[1];
+            }
+        }
+        return true;
+    }
+    
+    
+    public static void nQueenCombinationsUnOptimize(boolean[][] board, int tq, int row, int col, String ans){
+        if(tq == 0){
+            System.out.println(ans);
+            return;
+        }
+        
+        if(col == board[0].length){
+            row++;
+            col = 0;
+        }
+        
+        if(row==board.length)   return;
+        
+        if(isSafeToPlace(board, row, col)){
+            board[row][col] = true;
+            nQueenCombinationsUnOptimize(board, tq - 1, row, col + 1, ans + "(" + row + "-" + col + ")" + " ");
+            board[row][col] = false;
+        }
+        nQueenCombinationsUnOptimize(board, tq, row, col + 1, ans);
+    }
+    
+    
+    public static void nQueenPermutationsUnOptmize(boolean[][] board, int tq, int row, int col, String ans){
+        if(tq == 0){
+            System.out.println(ans);
+            return;
+        }
+        if(col == board[0].length){
+            row++;
+            col = 0;
+        }
+        if(row == board.length){
+            return;
+        }
+        
+        if(isSafeToPlacePer(board, row, col)){
+            board[row][col] = true;
+            nQueenPermutationsUnOptmize(board, tq - 1, 0, 0, ans + "(" + row + "-" + col + ")" + " ");
+            board[row][col] = false;
+        }
+        nQueenPermutationsUnOptmize(board, tq, row, col + 1, ans);
+        
+    }
+    
+    public static void nQueenCombinationsOptimizeSolution(boolean[][] board, int tq, int row, int col, String ans, boolean[] rowS, boolean[] colS, boolean[] nDia, boolean[] rDia){
+        if(tq == 0){
+			    System.out.println(ans);
+			    return;
+		    }
+
+		    if(col == board[0].length){
+			    row++;
+			    col = 0;
+		    }
+
+		    if(row == board.length)	return;
+
+		    if(!rows[row] && !cols[col] && !diag[row + col] && !adiag[row - col + board[0].length - 1]){
+		  	    rows[row]= cols[col] = diag[row + col] = adiag[row - col + board[0].length - 1] = true;
+			      nQueenCombinationsOptimizeSolution(board, tq - 1, row, col + 1, ans + "(" + row + ", " + col + ")", rowS, colS, nDia, rDia);
+			      rows[row] = cols[col] = diag[row + col] = adiag[row - col + board[0].length - 1] = false;
+		    }
+		    nQueenCombinationsOptimizeSolution(board, tq, row, col+1, ans, rows, cols, diag, adiag);
+    }
+  
+    public static int nqueens_perm(boolean[][] board, int tq, int row, int col, String ans, boolean[] rows, boolean[] cols, boolean[] diag, boolean[] adiag){
+		
+        if(tq == 0){
+            System.out.println(ans);
+            return 1;
+        }
+
+        if(col == board[0].length){
+            row++;
+            col = 0;
+        }
+
+        if(row == board.length)	return 0;
+
+        int count = 0;
+        if(!rows[row] && !cols[col] && !diag[row + col] && !adiag[row - col + board[0].length - 1]){
+          rows[row] = cols[col] = diag[row + col] = adiag[row - col + board[0].length - 1] = true;
+          count += nqueens_perm(board, tq - 1, 0, 0, ans + "(" + row + ", " + col +")", rows, cols, diag, adiag);
+          rows[row] = cols[col] = diag[row + col] = adiag[row - col + board[0].length - 1] = false;
+        }
+
+        count+=nqueens_perm(board, tq, row, col+1, ans, rows, cols, diag, adiag);
+        return count;
+	}
+    
+}
+
+
+
+
+
+
+
 //  Nqueen Branch and bound
 
 import java.io.*;
