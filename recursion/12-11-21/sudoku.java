@@ -65,3 +65,31 @@ public boolean isSafeToPlace(char[][] board, int num, int r, int c) {
         solveSudoku(board, 0, cells);
     }
 }
+
+
+// leetcode 37
+public static int nqueens_perm(boolean[][] board, int tq, int row, int col, String ans, boolean[] rows, boolean[] cols, boolean[] diag, boolean[] adiag){
+		
+		if(tq==0){
+			System.out.println(ans);
+			return 1;
+		}
+
+		if(col==board[0].length){
+			row++;
+			col=0;
+		}
+
+		if(row==board.length)	return 0;
+
+		int count=0;
+		if(!rows[row] && !cols[col] && !diag[row+col] && !adiag[row-col+board[0].length-1]){
+			rows[row]=cols[col]=diag[row+col]=adiag[row-col+board[0].length-1]=true;
+			count+=nqueens_perm(board, tq-1, 0, 0, ans+"("+row+", "+col+")", rows, cols, diag, adiag);
+			rows[row]=cols[col]=diag[row+col]=adiag[row-col+board[0].length-1]=false;
+		}
+		
+		count+=nqueens_perm(board, tq, row, col+1, ans, rows, cols, diag, adiag);
+		return count;
+	}
+
