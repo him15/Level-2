@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class sudoku {
+public class Main {
 
 public boolean isSafeToPlace(char[][] board, int num, int r, int c) {
 		
