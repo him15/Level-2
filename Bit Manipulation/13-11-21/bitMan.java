@@ -44,3 +44,24 @@ class Solution {
         return ans;
     }
 }
+
+// leetcode 260
+class Solution {
+    public int[] singleNumber(int[] nums) {
+        int xor = 0;
+        for (int ele : nums)
+            xor ^= ele;
+
+        int mask = (xor & (-xor));
+
+        int A = 0, B = 0;
+        for (int ele : nums) {
+            if ((ele & mask) == 0)
+                A ^= ele;
+            else
+                B ^= ele;
+        }
+
+        return new int[] { A, B };
+    }
+}   
