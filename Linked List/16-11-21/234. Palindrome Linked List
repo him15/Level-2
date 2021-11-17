@@ -1,0 +1,96 @@
+-----------------------------------------java
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        ListNode curr = head;
+        ListNode mid = midNode(head);
+        ListNode nhead = reverseList(mid);
+        
+        while(nhead != null){
+            if(curr.val != nhead.val){
+                return false;
+            }
+            curr = curr.next;
+            nhead = nhead.next;  
+        }
+        return true;
+    }
+    
+     public ListNode midNode(ListNode head){
+        if(head == null){
+            return head;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    } 
+    
+    public ListNode reverseList(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode curr = head;
+        ListNode prev = null;
+        
+        while(curr != null){
+            ListNode frw = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = frw;
+        }
+        return prev;
+    }
+}
+    
+    
+   ---==========================----------------cpp
+   class Solution {
+public:
+    ListNode* midNode(ListNode* head){
+        if(head == nullptr){
+            return head;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast != nullptr && fast->next != nullptr){
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        return slow;
+    }
+    
+    ListNode* reverseList(ListNode* head) {
+        if(head == nullptr || head->next == nullptr){
+            return head;
+        }
+        ListNode* curr = head;
+        ListNode* prev = nullptr;
+        
+        while(curr != nullptr){
+            ListNode* frw = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = frw;
+        }
+        return prev;
+    }
+    
+    bool isPalindrome(ListNode* head) {
+        ListNode* curr = head;
+        ListNode* mid = midNode(head);
+        ListNode* nhead = reverseList(mid);
+        
+        while(nhead != nullptr){
+            if(curr->val != nhead->val){
+                return false;
+            }
+            curr = curr->next;
+            nhead = nhead->next;  
+        }
+        return true;
+    }
+    
+};
