@@ -60,13 +60,13 @@ public class Main {
 
         int count = 0;
         if (sc + 1 <= dc) {
-          count += countMazePath_Memo(sr, sc + 1, dr, dc, dp);
+          count += dp[sr][sc + 1]; //countMazePath_Memo(sr, sc + 1, dr, dc, dp);
         }
         if (sr + 1 <= dr) {
-          count += countMazePath_Memo(sr + 1, sc, dr, dc, dp);
+          count += dp[sr + 1][sc]; //countMazePath_Memo(sr + 1, sc, dr, dc, dp);
         }
         if (sr + 1 <= dr && sc + 1 <= dc) {
-          count += countMazePath_Memo(sr + 1, sc + 1, dr, dc, dp);
+          count += dp[sr + 1][sc + 1]; //countMazePath_Memo(sr + 1, sc + 1, dr, dc, dp);
         }
         dp[sr][sc] = count;
       }
