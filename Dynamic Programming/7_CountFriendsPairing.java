@@ -52,10 +52,10 @@ class solution{
            }
            long count = 0;
            if(n - 1 >= 0){
-               count += countFriendsPairings_Memo(n - 1, dp);
+               count += dp[n - 1]; //countFriendsPairings_Memo(n - 1, dp);
            }
            if(n - 2 >= 0){
-               count += countFriendsPairings_Memo(n - 2, dp) * (n - 1);
+               count += dp[n - 2] * (n - 1); //countFriendsPairings_Memo(n - 2, dp) * (n - 1);
            }
            dp[n] = count % mod;
        }
