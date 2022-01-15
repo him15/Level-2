@@ -5,7 +5,8 @@ class Solution {
         Arrays.fill(dp, -1);
         // return minCostClimbingStairs_Recursive(cost, n);
         // return minCostClimbingStairs_Memo(n, cost, dp);
-        return minCostClimbingStairs_DP(n, cost, dp);
+        // return minCostClimbingStairs_DP(n, cost, dp);
+        return minCostClimbingStairs_Optimize(n, cost);
     }
     
     public int minCostClimbingStairs_Recursive(int[] cost, int n){
@@ -57,5 +58,16 @@ class Solution {
             dp[n] = minCost + (n == cost.length ? 0 : cost[n]);
         }
         return dp[N];
+    }
+    
+    public int minCostClimbingStairs_Optimize(int n, int[] cost){
+        int a = cost[0];
+        int b = cost[1];
+        for(int i = 2; i <= n; i++){
+            int minCost = Math.min(a, b) + (i == cost.length ? 0 : cost[i]);
+            a = b;
+            b = minCost;
+        }
+        return Math.min(a, b);
     }
 }
