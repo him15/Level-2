@@ -9,8 +9,9 @@ public class Main {
 
     // System.out.println(diceThrowRecursive(n));           // recursive solution
     // System.out.println(diceThrow_Memo(n, dp));  // memo
-    System.out.println(diceThrow_DP(n, dp));    //dp
-    print1D(dp);
+    // System.out.println(diceThrow_DP(n, dp));    //dp
+    System.out.println(diceThrow_SpaceOptimize(n)); // space optimization
+    // print1D(dp);
     // print2D(dp);
   }
 
@@ -59,6 +60,22 @@ public class Main {
     }
 
     return dp[N];
+  }
+  
+  public static int diceThrow_SpaceOptimize(int N){
+      LinkedList<Integer> list = new LinkedList<>();
+      for(int n = 0; n <= N; n++){
+          if(n == 0 || n == 1){
+              list.addLast(1);
+          }else{
+              if(list.size() <= 6){
+                  list.addLast(list.getLast() * 2);
+              }else{
+                  list.addLast(list.getLast() * 2 - list.removeFirst());
+              }
+          }
+      }
+      return list.getLast();
   }
 
   public static void print1D(int[] arr) {
