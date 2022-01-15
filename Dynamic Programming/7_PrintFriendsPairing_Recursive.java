@@ -20,3 +20,17 @@ public class Main{
         return count;
     }
 }
+
+                          ABCDEF
+                          /    \     \     \     \     \
+                         A     AB    AC    AD    AE    AF
+                    (BCDEF)  (CDEF)(BDEF)(BCEF)(BCDF)(BCDE)
+                      | ||||
+                      |  \\\\-----------\  
+                      |   \\\-------\    \
+                      |    \ ---\    \    \
+                      |     \    \    \    \
+                      |      \    \    \    \
+                      /       \    \    \    \
+                     B        BC   BD   BE   BF
+                   (CDEF)   (DEF)(CEF)(CDF)(CDE)
