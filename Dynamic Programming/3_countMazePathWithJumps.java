@@ -60,15 +60,15 @@ public class Main {
 
         int count = 0;
         for (int jump = 1; sc + jump <= dc; jump++) {
-          count += countMazePathWithJumps_Memo(sr, sc + jump, dr, dc, dp);
+          count += dp[sr][sc + jump];    //countMazePathWithJumps_Memo(sr, sc + jump, dr, dc, dp);
         }
         for (int jump = 1; sr + jump <= dr; jump++) {
-          count += countMazePathWithJumps_Memo(sr + jump, sc, dr, dc, dp);
+          count += dp[sr + jump][sc];   //countMazePathWithJumps_Memo(sr + jump, sc, dr, dc, dp);
         }
         for (int jump = 1; sr + jump <= dr && sc + jump <= dc; jump++) {
-          count += countMazePathWithJumps_Memo(sr + jump, sc + jump, dr, dc, dp);
-          dp[sr][sc] = count;
+          count += dp[sr + jump][sc + jump];    //countMazePathWithJumps_Memo(sr + jump, sc + jump, dr, dc, dp);
         }
+        dp[sr][sc] = count;
       }
     }
     return dp[SR][SC];
