@@ -5,9 +5,10 @@ class Solution {
         
         // return numDecodings_Recursive(s, 0);
         // return numDecodings_Memo(s, 0, dp);
-        int ans = numDecodings_DP(s, 0, dp);
-        for(int val : dp)   System.out.print(val + " ");
-        return ans;
+        // int ans = numDecodings_DP(s, 0, dp);
+        // for(int val : dp)   System.out.print(val + " ");
+        // return ans;
+        return numDecodings_Opti(s);
     }
     
     
@@ -82,5 +83,30 @@ class Solution {
             dp[idx] = count;
         }
         return dp[IDX];
+    }
+    
+    public int numDecodings_Opti(String s){
+        int a = 1;
+        int b = 0;
+        for(int idx = s.length() - 1; idx >= 0 ; idx--){
+            int count = 0;
+
+            char ch1 = s.charAt(idx);
+            if(ch1 != '0'){
+                count += a; //numDecodings_Memo(s, idx + 1, dp);
+
+                if(idx < s.length() - 1){
+                    char ch2 = s.charAt(idx + 1);
+                    int val = (ch1 - '0') * 10 + (ch2 - '0');
+                    if(val <= 26){
+                        count += b; //numDecodings_Memo(s, idx + 2, dp);
+                    }
+                }
+            }
+            
+            b = a;
+            a = count;
+        }
+        return a;
     }
 }
