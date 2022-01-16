@@ -166,13 +166,71 @@ class Solution {
         return dp[IDX];
     }
     
+    public long numDecodings_Opti(String s) {
+        long a = 1;
+        long b = 0;
+        for(int idx = s.length() - 1; idx >= 0; idx--){
+            
+            long count = 0;
+            char ch1 = s.charAt(idx);
+            if(ch1 == '0'){
+                count = 0;
+            }
+            else if(ch1 == '*'){  // **  *n
+                count = (count % mod + 9 * a /*numDecodings_Memo(s, idx + 1, dp)*/ % mod) % mod;
+                if(idx < s.length() - 1){
+                    char ch2 = s.charAt(idx + 1);
+                    // **---------------------------------
+                    if(ch2 == '*'){
+                        count = (count % mod + 15 * b /*numDecodings_Memo(s, idx + 2, dp)*/ % mod) % mod;
+                    }
+                    // *n---------------------------------
+                    else if(ch2 >= '0' && ch2 <= '6'){
+                        count = (count % mod + 2 * b /*numDecodings_Memo(s, idx + 2, dp)*/ % mod) % mod;
+                    }
+                    else if(ch2 > '6'){
+                        count = (count % mod + b /*numDecodings_Memo(s, idx + 2, dp)*/ % mod) % mod;
+                    }
+                }
+            }
+            else{   // nn   n*
+                count = (count % mod + a /*numDecodings_Memo(s, idx + 1, dp)*/ % mod) % mod;
+
+                if(idx < s.length() - 1){
+                    char ch2 = s.charAt(idx + 1);
+                    // nn---------------------------------
+                    if(ch2 != '*'){
+                        int num = (ch1 - '0') * 10 + (ch2 - '0');
+                        if(num <= 26){
+                            count = (count % mod + b /*numDecodings_Memo(s, idx + 2, dp)*/ % mod) % mod;
+                        }
+                    }
+                    // n*---------------------------------
+                    else if(ch2 == '*'){
+                        if(s.charAt(idx) == '1'){
+                            count = (count % mod + 9 * b /*numDecodings_Memo(s, idx + 2, dp)*/ % mod) % mod;
+                        }
+                        else if(s.charAt(idx) == '2'){
+                            count = (count % mod + 6 * b /*numDecodings_Memo(s, idx + 2, dp)*/ % mod) % mod;
+                        }
+                    }
+                }
+            }
+            b = a;
+            a = count;
+        }
+        return a;
+    }
+    
     public int numDecodings(String s) {
         long[] dp = new long[s.length() + 1];
         Arrays.fill(dp, -1);
         
         // long ans = numDecodings_Recursive(s, 0);
         // long ans = numDecodings_Memo(s, 0, dp);
-        long ans = numDecodings_DP(s, 0, dp);
+        // long ans = numDecodings_DP(s, 0, dp);
+        long ans = numDecodings_Opti(s);
+        // for(long val : dp)   System.out.print(val + " ");
         return (int)ans;
     }
 }
