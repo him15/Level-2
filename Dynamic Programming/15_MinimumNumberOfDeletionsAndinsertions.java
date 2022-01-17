@@ -26,7 +26,7 @@ class Solution{
         int m = s2.length();
         int[][] dp = new int[n + 1][m + 1];
         int lcs = lcsDp(s1, s2, n, m, dp);
-        /* (n - lcs) firstly we are converting the S1 into LCS and after that converting that LCS to S2 with (m - lcs), Actually we want the count of the minimum number of operations so we are calculating that with the help of (n - lcs) + (m - lcs)
+        /* (n - lcs) firstly we are converting the S1 into LCS and after that converting that LCS to S2 with (m - lcs), Actually we want the count of the minimum number of 		operations so we are calculating that with the help of (n - lcs) + (m - lcs)
 	*/
         return (n - lcs) + (m - lcs);
 	} 
