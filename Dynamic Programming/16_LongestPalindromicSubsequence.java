@@ -109,22 +109,6 @@ class Solution {
         return dp[0][n - 1];
     }
     
-    public ArrayList<String> printLPS_Recursive(String s, int i, int j, int[][] dp){
-        if(i > j){
-            ArrayList<String> bans = new ArrayList<>();
-            bans.add("");
-            return bans;
-        }
-        ArrayList<String> rr = new ArrayList<>();
-        if(s.charAt(i) == s.charAt(j)){
-            rr = printLPS_Recursive(s, i + 1, j - 1, dp);
-            
-        }else if{
-            
-        }
-         
-        
-    }
     
     public int longestPalindromeSubseq(String s) {
         int n = s.length();
@@ -135,8 +119,7 @@ class Solution {
         // return longestPalindromeSubseq_Recursive(s, 0, n - 1);
         // return longestPalindromeSubseq_Memo(s, 0, n - 1, dp);
         int ans = longestPalindromeSubseq_DP(s, 0, n - 1, dp);
-        // String str = printLPS(s);
-        printLPS_Recursive(s, 0, n - 1, dp);
+        String str = printLPS(s);
         System.out.println(str);
         return ans;
     }
