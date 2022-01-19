@@ -36,7 +36,7 @@ class Solution {
         for(int n = 0; n <= N; n++){
             for(int m = 0; m <= M; m++){
                 if(n == 0 || m == 0){
-                    dp[n][m] = -2000;
+                    dp[n][m] = -(int)1e7;
                     continue;
                 }
 
