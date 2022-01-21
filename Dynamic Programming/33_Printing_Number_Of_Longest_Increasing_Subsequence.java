@@ -43,7 +43,7 @@ class Solution {
         if(map.containsKey(count - 1)){
             ArrayList<Integer> list = map.get(count - 1);
             for(Integer i : list){
-                if(arr[i] < arr[idx]){
+                if(i < idx && arr[i] < arr[idx]){
                     printNumberofLIS(arr, map, i, count - 1, asf + arr[i] + " ");
                 }
             }
