@@ -49,7 +49,7 @@ public class Main {
     
     public static int coinChangePer_DP(int[] arr, int Tar, int[] dp){
         dp[0] = 1;
-        for(int tar = 1g; tar <= Tar; tar++){
+        for(int tar = 1; tar <= Tar; tar++){
             for(int coin : arr){
                 if(tar - coin >= 0){
                     dp[tar] += dp[tar - coin];  //coinChangePer_Memo(arr, tar - coin, dp);
